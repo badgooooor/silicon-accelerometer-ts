@@ -6,20 +6,20 @@
 
 // Integration test with hardware, only just print it's found.
 int main(void) {
-    IOHIDDeviceRef hid;
-    io_service_t service = find_accelerometer_device();
-    bool wake_success = false;
+    int start_status = accel_start();
+    sleep(2);
 
-    if (service != IO_OBJECT_NULL) {
-        printf("Accelerometer found: service handle %d\n", service);
-        hid = accel_open_device(service);
-        printf("Opened accelerometer: ID %p\n", (void *)hid);
-        
-        wake_success = accel_wake_device();
-        printf("Device wake : %d\n", wake_success);
-    } else {
-        printf("Accelerometer not found.\n");
+    for (int i = 0; i < 10; i++) {
+        AccelerometerSampleData data = accel_read();
+
+        if (data.valid) {
+            printf("accel: x=%.4f y=%.4f z=%.4f ts=%llu ns\n",
+               data.s.x, data.s.y, data.s.z, data.timestamp_ns);
+        } else {
+            printf("accel: no valid sample\n");
+        }
+        sleep(1);
     }
-        
+
     return 0;
 }
