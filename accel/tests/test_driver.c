@@ -10,7 +10,8 @@ int main(void) {
     sleep(2);
 
     for (int i = 0; i < 10; i++) {
-        AccelerometerSampleData data = accel_read();
+        AccelerometerSampleData data;
+        accel_read(&data);
 
         if (data.valid) {
             printf("accel: x=%.4f y=%.4f z=%.4f ts=%llu ns\n",

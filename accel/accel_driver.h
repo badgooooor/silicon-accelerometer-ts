@@ -20,6 +20,6 @@ bool            accel_wake_device(void);
 // Start/stop loop and read sensor values.
 int                                 accel_start(void);
 void                                accel_stop(void);
-AccelerometerSampleData             accel_read(void);
+void                                accel_read(AccelerometerSampleData *out);
 
 #endif

@@ -170,10 +170,8 @@ void accel_stop(void) {
     pthread_join(s_thread, NULL);
 }
 
-AccelerometerSampleData accel_read() {
-    AccelerometerSampleData s;
+void accel_read(AccelerometerSampleData *out) {
     pthread_mutex_lock(&s_lock);
-    s = s_latest_expose;
+    *out = s_latest_expose;
     pthread_mutex_unlock(&s_lock);
-    return s;
 }
