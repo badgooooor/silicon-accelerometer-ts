@@ -6,3 +6,6 @@
 
 test_driver
 test_parse
+
+# Node
+node_modules
