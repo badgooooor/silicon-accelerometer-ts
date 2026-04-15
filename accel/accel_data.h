@@ -1,6 +1,7 @@
 #ifndef ACCEL_H
 #define ACCEL_H
 
+#include <stdbool.h>
 #include <stdint.h>
 #include <string.h>
 #include <assert.h>
