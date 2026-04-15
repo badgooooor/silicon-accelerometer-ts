@@ -16,15 +16,15 @@ static pthread_t        s_thread;
 static bool             s_running = false;
 static uint8_t s_report_buf[4096];
 
-CFStringRef cfstr(const char *s) {
+static CFStringRef cfstr(const char *s) {
     return CFStringCreateWithCString(kCFAllocatorDefault, s, kCFStringEncodingUTF8);
 }
 
-CFNumberRef cfnum32(int32_t v) {
+static CFNumberRef cfnum32(int32_t v) {
     return CFNumberCreate(kCFAllocatorDefault, kCFNumberSInt32Type, &v);
 }
 
-int64_t prop_int(io_service_t svc, const char *key) {
+static int64_t prop_int(io_service_t svc, const char *key) {
     CFStringRef k = cfstr(key);
     CFTypeRef ref = IORegistryEntryCreateCFProperty(svc, k, kCFAllocatorDefault, 0);
     CFRelease(k);
@@ -35,7 +35,7 @@ int64_t prop_int(io_service_t svc, const char *key) {
     return v;
 }
 
-io_service_t find_accelerometer_device() {
+static io_service_t find_accelerometer_device() {
     CFMutableDictionaryRef matching = IOServiceMatching("AppleSPUHIDDevice");
     if (!matching) {
         fprintf(stderr, "IOServiceMatching returned NULL\n");
@@ -68,7 +68,7 @@ io_service_t find_accelerometer_device() {
     return IO_OBJECT_NULL;
 }
 
-IOHIDDeviceRef accel_open_device(io_service_t service) {
+static IOHIDDeviceRef accel_open_device(io_service_t service) {
     IOHIDDeviceRef hid = IOHIDDeviceCreate(kCFAllocatorDefault, service);
     if (!hid) return NULL;
 
@@ -80,7 +80,7 @@ IOHIDDeviceRef accel_open_device(io_service_t service) {
     return hid;
 }
 
-bool accel_wake_device() {
+static bool accel_wake_device() {
     bool found = false;
     io_iterator_t it;
     IOServiceGetMatchingServices(kIOMainPortDefault, IOServiceMatching("AppleSPUHIDDriver"), &it);
