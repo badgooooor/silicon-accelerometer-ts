@@ -1,6 +1,6 @@
 {
   "name": "silicon-accelerometer",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "Apple Silicon accelerometer via Bun FFI",
   "module": "index.ts",
   "type": "module",
@@ -13,7 +13,8 @@
     "accel.dylib"
   ],
   "scripts": {
-    "build:dylib": "make export_dylib"
+    "build:dylib": "make export_dylib",
+    "typecheck": "tsc --noEmit"
   },
   "os": ["darwin"],
   "cpu": ["arm64"],
