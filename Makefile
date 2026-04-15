@@ -15,6 +15,16 @@ test_parse_compile:
 test_parse_run:
 	./test_parse
 
+# Export dylib
+export_dylib:
+	clang -dynamiclib -framework IOKit -framework CoreFoundation \
+		-I./accel \
+		-o accel.dylib \
+		accel/accel_driver.c accel/accel_data.c -lm
+
+get_dylib_signature:
+	nm -gU accel.dylib
+
 .PHONY: clean
 clean:
 	rm -f $(TARGET) *.o
