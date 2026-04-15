@@ -1,8 +1,24 @@
 {
   "name": "silicon-accelerometer",
+  "version": "1.0.0",
+  "description": "Apple Silicon accelerometer via Bun FFI",
   "module": "index.ts",
   "type": "module",
-  "private": true,
+  "exports": {
+    ".": "./index.ts"
+  },
+  "files": [
+    "index.ts",
+    "accel.ts",
+    "accel.dylib"
+  ],
+  "scripts": {
+    "build:dylib": "make export_dylib"
+  },
+  "os": ["darwin"],
+  "cpu": ["arm64"],
+  "keywords": ["accelerometer", "apple-silicon", "bun", "ffi", "iot"],
+  "license": "MIT",
   "devDependencies": {
     "@types/bun": "latest",
     "@types/node": "^25.6.0"
