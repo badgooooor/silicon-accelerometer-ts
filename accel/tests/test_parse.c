@@ -14,7 +14,7 @@ void test_parse_1g_x() {
     buf[8] = 0x01;
     buf[9] = 0x00;
 
-    AcceleratorData s;
+    AccelerometerData s;
     extract_bytes(buf, 22, &s);
 
     assert(fabs(s.x - 1.0) < 1e-9);
@@ -29,7 +29,7 @@ void test_parse_1g_y() {
     buf[12] = 0x01;
     buf[13] = 0x00;
 
-    AcceleratorData s;
+    AccelerometerData s;
     extract_bytes(buf, 22, &s);
 
     assert(fabs(s.y - 1.0) < 1e-9);
@@ -44,7 +44,7 @@ void test_parse_1g_z() {
     buf[16] = 0x01;
     buf[17] = 0x00;
 
-    AcceleratorData s;
+    AccelerometerData s;
     extract_bytes(buf, 22, &s);
 
     assert(fabs(s.z - 1.0) < 1e-9);
@@ -59,7 +59,7 @@ void test_parse_negative_g() {
     buf[8] = 0xFF;
     buf[9] = 0xFF;
 
-    AcceleratorData s;
+    AccelerometerData s;
     extract_bytes(buf, 22, &s);
 
     assert(fabs(s.x - (-1.0)) < 1e-9);

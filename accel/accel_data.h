@@ -16,8 +16,15 @@
 
 typedef struct {
     double x, y, z;
-} AcceleratorData;
+} AccelerometerData;
 
-void extract_bytes(const uint8_t *buf, size_t len, AcceleratorData *out);
+typedef struct {
+    AccelerometerData s;
+    uint64_t timestamp_ns;
+    bool valid;
+} AccelerometerSampleData;
+
+void extract_bytes(const uint8_t *buf, size_t len, AccelerometerData *out);
+void create_sample_data(AccelerometerData *s, uint64_t timestamp, bool valid, AccelerometerSampleData *out);
 
 #endif
