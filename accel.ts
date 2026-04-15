@@ -4,18 +4,18 @@ import { resolve } from "path";
 const lib = dlopen(resolve(import.meta.dir, "accel.dylib"), {
      accel_start: {
         args: [],
-        return: FFIType.i32,
+        returns: FFIType.i32,
      },
      accel_stop: {
         args: [],
-        return: FFIType.void
+        returns: FFIType.void
      },
      // void accel_read(AccelerometerSampleData *out)
      // AccelerometerSampleData = { x: f64, y: f64, z: f64, ts: u64, valid: bool }
      // Layout: 8 + 8 + 8 + 8 + 1 = 33 bytes (+ padding = 40 bytes)
      accel_read: {
         args: [FFIType.ptr],
-        return: FFIType.void
+        returns: FFIType.void
      }
 });
 
@@ -26,7 +26,10 @@ const buffer = new ArrayBuffer(ACCELEROMETER_SAMPLE_DATA);
 const { symbols } = lib;
 
 export const start = () => {
-     const start_state = symbols.accel_start();
+     const status = symbols.accel_start();
+     if (status !== 0) {
+          throw new Error(`Failed to start acceleromter (code: ${status})`)
+     }
 };
 
 export const stop = () => {
