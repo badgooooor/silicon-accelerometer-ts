@@ -25,18 +25,29 @@ const buffer = new ArrayBuffer(ACCELEROMETER_SAMPLE_DATA);
 
 const { symbols } = lib;
 
+let _started = false;
+
 export const start = () => {
+     if (_started) {
+          throw new Error('silicon_accelerometer is already started');
+     }
      const status = symbols.accel_start();
      if (status !== 0) {
           throw new Error(`Failed to start acceleromter (code: ${status})`)
      }
+     _started = true;
 };
 
 export const stop = () => {
+     if (!_started) return;
      symbols.accel_stop();
+     _started = false;
 }
 
 export const read = (): { x: number; y: number; z: number; timestamp: bigint } | null => {
+     if (!_started) {
+          throw new Error('silicon_accelerometer has not started. Call start() first');
+     }
      symbols.accel_read(ptr(buffer));
 
      const view = new DataView(buffer);
@@ -50,3 +61,7 @@ export const read = (): { x: number; y: number; z: number; timestamp: bigint } |
           timestamp: view.getBigUint64(24, true),
      };
 }
+
+process.on("exit", () => {
+    if (_started) symbols.accel_stop();
+});
