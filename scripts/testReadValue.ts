@@ -1,10 +1,11 @@
-import { start, stop, read } from "../accel";
+import { Accelerometer } from "../accel";
 
-start();
+const accel = new Accelerometer();
+accel.start();
 await Bun.sleep(2000);
 
 for (let i = 0; i < 10; i++) {
-    const sample = read();
+    const sample = accel.read();
 
     if (sample) {
         const { x, y, z, timestamp } = sample;
@@ -17,4 +18,4 @@ for (let i = 0; i < 10; i++) {
     await Bun.sleep(1000);
 }
 
-stop();
+accel.stop();
