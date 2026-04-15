@@ -5,6 +5,7 @@
       "name": "silicon-accelerometer",
       "devDependencies": {
         "@types/bun": "latest",
+        "@types/node": "^25.6.0",
       },
       "peerDependencies": {
         "typescript": "^5",
