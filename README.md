@@ -4,6 +4,11 @@ Read accelerometer data from Apple Silicon Macs via Bun FFI.
 
 A TypeScript wrapper around a C implementation based from [apple-silicon-accelerometer](https://github.com/olvvier/apple-silicon-accelerometer), exposing `x`, `y`, `z`, and `timestamp` readings through a simple class interface.
 
+## Video demo
+
+[silicon-accelerometer-demo.webm](https://github.com/user-attachments/assets/d1dc69a6-458c-45a8-b342-9de3c58ea506)
+
+
 ## Requirements
 
 - macOS, Apple Silicon (arm64)
